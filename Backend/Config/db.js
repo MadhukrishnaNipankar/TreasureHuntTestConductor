@@ -8,7 +8,6 @@ const connectDb = (CONNECTION_STRING) => {
       console.log(
         `Database connection successfull on the URL : ${CONNECTION_STRING}`
       );
-      console.log("Connection Object:", conn);
     })
     .catch((err) => {
       console.log("There was a problem while connecting to the database", err);

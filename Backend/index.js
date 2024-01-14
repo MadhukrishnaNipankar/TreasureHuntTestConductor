@@ -6,6 +6,9 @@ const cors = require("cors");
 // Local Imports
 const connectDb = require("./Config/db");
 
+// Routes Import
+const adminRoutes = require("./Routes/adminRoutes");
+
 // Middleware to parse JSON
 app.use(express.json());
 // Middleware to allow cross origin requests
@@ -19,6 +22,9 @@ const CONNECTION_STRING = process.env.CONNECTION_STRING;
 
 // Database Connection
 connectDb(CONNECTION_STRING);
+
+//Defining API's
+app.use("/api/v1/admin", adminRoutes);
 
 app.get("/", (req, res) => {
   res.send("<h1>TestConductor</h1>");
