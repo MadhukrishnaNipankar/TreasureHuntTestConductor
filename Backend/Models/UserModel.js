@@ -27,6 +27,14 @@ const userSchema = new mongoose.Schema({
     required: [true, "Password is required"],
     minLength: [2, "Password must be at least 2 characters long"],
   },
+  questionsSolved: {
+    type: Number,
+    default: 0,
+  },
+  testSubmissionTime: {
+    type: Date,
+    default: null,
+  },
   accountCreatedAt: {
     type: Date,
     default: Date.now,

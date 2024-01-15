@@ -8,6 +8,7 @@ const connectDb = require("./Config/db");
 
 // Routes Import
 const adminRoutes = require("./Routes/adminRoutes");
+const userRoutes = require("./Routes/userRoutes");
 
 // Middleware to parse JSON
 app.use(express.json());
@@ -25,6 +26,7 @@ connectDb(CONNECTION_STRING);
 
 //Defining API's
 app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/user", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("<h1>TestConductor</h1>");

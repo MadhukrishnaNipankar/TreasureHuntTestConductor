@@ -96,11 +96,11 @@ exports.createStudentAccounts = async (req, res) => {
     await User.deleteMany({});
 
     // Add the new array of objects to the User model
-    await User.insertMany(newStudentAccountData);
+    const currentStudentData = await User.insertMany(newStudentAccountData);
 
     return res.status(200).json({
       status: "success",
-      data: newStudentAccountData,
+      data: currentStudentData,
       message: "Accounts Created Successfully!",
     });
   } catch (exception) {
@@ -143,15 +143,75 @@ exports.createTest = async (req, res) => {
     await Test.deleteMany({});
 
     // Add the new array of objects to the Test model
-    await Test.insertMany(newTestData);
+    const testData = await Test.insertMany(newTestData);
 
     return res.status(200).json({
       status: "success",
-      data: newTestData,
+      data: testData,
       message: "Test Created Successfully!",
     });
   } catch (exception) {
     console.log(exception);
+    return res.status(500).json({
+      status: "fail",
+      data: null,
+      message: "Something went wrong at our side!",
+      exception: exception.message,
+    });
+  }
+};
+
+exports.getResults = async (req, res) => {
+  /*
+    Algorithm:
+    1] get the user data from database
+    2] sort all the users objects by considering following criteria:
+      a. sort according to the questionsSolved value in ascending order
+      b. Incase questionsSolved values of 2 or more objects are same, then compare the 'testSubmissionTime'. The user with less testSubmissionTime will be put first!
+    3] Now, create a new response object with this format:
+    [{rank:1,firstname:something,lastname:something,email:something}, {}, {}, {}, {}, {}, {}, {},]
+     
+    My user Data object containers following keys:
+        _id
+        firstName
+        lastName
+        emailId
+        password
+        questionsSolved
+        testSubmissionTime
+        accountCreatedAt
+       __v
+    */
+  try {
+    // Get user data from the database
+    const userData = await User.find();
+
+    // Sort users based on questionsSolved and testSubmissionTime
+    userData.sort((a, b) => {
+      if (a.questionsSolved !== b.questionsSolved) {
+        return b.questionsSolved - a.questionsSolved; // Sort by questionsSolved in ascending order
+      } else {
+        // If questionsSolved is the same, sort by testSubmissionTime in ascending order
+        return new Date(a.testSubmissionTime) - new Date(b.testSubmissionTime);
+      }
+    });
+
+    // Create a new response object
+    const results = userData.map((user, index) => ({
+      rank: index + 1,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.emailId,
+      questionsSolved: user.questionsSolved,
+      testSubmissionTime: user.testSubmissionTime,
+    }));
+
+    return res.status(200).json({
+      status: "success",
+      data: results,
+      message: "Results retrieved successfully",
+    });
+  } catch (exception) {
     return res.status(500).json({
       status: "fail",
       data: null,
