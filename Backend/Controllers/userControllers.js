@@ -39,21 +39,21 @@ exports.logUserIn = async (req, res) => {
       });
     }
 
-    // Check if the user has already given the test
-    if (user.testSubmissionTime !== null) {
-      return res.status(401).json({
-        status: "fail",
-        data: null,
-        message: "You've already submitted the test",
-      });
-    }
-
     // Check if the provided password matches the stored password
     if (user.password !== password) {
       return res.status(401).json({
         status: "fail",
         data: null,
         message: "Invalid username or password",
+      });
+    }
+
+    // Check if the user has already given the test
+    if (user.testSubmissionTime !== null) {
+      return res.status(401).json({
+        status: "fail",
+        data: null,
+        message: "You've already submitted the test",
       });
     }
 
