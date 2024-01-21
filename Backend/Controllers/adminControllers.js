@@ -114,6 +114,87 @@ exports.createStudentAccounts = async (req, res) => {
   }
 };
 
+exports.getAllUsers = async (req, res) => {
+  try {
+    // 1] Get all the users from the 'User' collection
+    const users = await User.find(
+      {},
+      "-testSubmissionTime -questionsSolved -password -accountCreatedAt"
+    );
+
+    // 2] Send all the data as a response
+    return res.status(200).json({
+      status: "success",
+      data: users,
+      message: "All users retrieved successfully",
+    });
+  } catch (exception) {
+    console.log(exception);
+    return res.status(500).json({
+      status: "fail",
+      data: null,
+      message: "Something went wrong at our side!",
+      exception: exception.message,
+    });
+  }
+};
+
+exports.resetUserData = async (req, res) => {
+  try {
+    // 1] Check if the userId is present in the req body
+    const { userId } = req.body;
+    if (!userId) {
+      return res.status(400).json({
+        status: "fail",
+        data: null,
+        message: "Please specify the userId",
+      });
+    }
+
+    // 2] Find the object with the specified userId
+    let user;
+    try {
+      user = await User.findById(userId);
+    } catch (error) {
+      return res.status(400).json({
+        status: "fail",
+        data: null,
+        message: "Invalid userId format",
+      });
+    }
+
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        data: null,
+        message: "User not found with the specified userId",
+      });
+    }
+
+    // 3] Reset the values of 'questionsSolved' to 0 and 'testSubmissionTime' to null
+    user.questionsSolved = 0;
+    user.testSubmissionTime = null;
+
+    // Save the updated user object
+    await user.save();
+
+    // 4] Send the response that the data reset was successful
+    return res.status(200).json({
+      status: "success",
+      data: null,
+      message: "User data reset was successful",
+    });
+  } catch (exception) {
+    console.log(exception);
+    return res.status(500).json({
+      status: "fail",
+      data: null,
+      message: "Something went wrong at our side!",
+      exception: exception.message,
+    });
+  }
+};
+
 exports.createTest = async (req, res) => {
   try {
     // Parse data into array of objects

@@ -11,6 +11,8 @@ const {
   createStudentAccounts,
   createTest,
   getResults,
+  getAllUsers,
+  resetUserData,
   protect,
 } = require("../Controllers/adminControllers");
 
@@ -18,6 +20,10 @@ const {
 router.post("/", logAdminIn);
 // Create Student Account
 router.post("/createStudentAccounts", protect, createStudentAccounts);
+// Get Registered User Data
+router.get("/getAllUsers", protect, getAllUsers);
+// Reset User Data of a particular User
+router.post("/resetData", protect, resetUserData);
 // Create Test
 router.post("/createTest", protect, createTest);
 // Generate Result
