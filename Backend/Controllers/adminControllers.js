@@ -246,10 +246,9 @@ exports.createTest = async (req, res) => {
 exports.getTotalQuestionCount = async (req, res) => {
   try {
     // Parse data into array of objects
-    const testData = parseExcelData("./Data/TestData/test.xlsx");
     return res.status(200).json({
       status: "success",
-      totalQuestionCount: testData.length,
+      totalQuestionCount: process.env.TOTAL_QUESTION_COUNT,
       message: "Total Question Count Retrived Successfully",
     });
   } catch (exception) {
