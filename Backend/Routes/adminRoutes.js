@@ -12,6 +12,7 @@ const {
   getResults,
   getAllUsers,
   resetUserData,
+  getTotalQuestionCount,
   protect,
 } = require("../Controllers/adminControllers");
 
@@ -21,6 +22,8 @@ router.post("/", logAdminIn);
 router.post("/createStudentAccounts", protect, createStudentAccounts);
 // Get Registered User Data
 router.get("/getAllUsers", protect, getAllUsers);
+// Get Total Question Count
+router.get("/getTotalQuestionCount", protect, getTotalQuestionCount);
 // Reset User Data of a particular User
 router.post("/resetData", protect, resetUserData);
 // Create Test

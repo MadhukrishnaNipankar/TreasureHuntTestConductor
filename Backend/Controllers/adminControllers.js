@@ -77,6 +77,7 @@ exports.createStudentAccounts = async (req, res) => {
     3.emailId
     4.password    
     */
+
     // Validate Data: Each Array Object should contain the following keys
     const validKeys = ["firstName", "lastName", "emailId", "password"];
 
@@ -230,6 +231,26 @@ exports.createTest = async (req, res) => {
       status: "success",
       data: testData,
       message: "Test Created Successfully!",
+    });
+  } catch (exception) {
+    console.log(exception);
+    return res.status(500).json({
+      status: "fail",
+      data: null,
+      message: "Something went wrong at our side!",
+      exception: exception.message,
+    });
+  }
+};
+
+exports.getTotalQuestionCount = async (req, res) => {
+  try {
+    // Parse data into array of objects
+    const testData = parseExcelData("./Data/TestData/test.xlsx");
+    return res.status(200).json({
+      status: "success",
+      totalQuestionCount: testData.length,
+      message: "Total Question Count Retrived Successfully",
     });
   } catch (exception) {
     console.log(exception);
