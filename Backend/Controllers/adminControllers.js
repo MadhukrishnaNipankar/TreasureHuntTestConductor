@@ -279,12 +279,14 @@ exports.getResults = async (req, res) => {
 
     // Create a new response object
     const results = userData.map((user, index) => ({
+      _id: user._id,
       rank: index + 1,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.emailId,
       questionsSolved: user.questionsSolved,
       testSubmissionTime: user.testSubmissionTime,
+      accountCreatedAt: user.accountCreatedAt,
     }));
 
     return res.status(200).json({
