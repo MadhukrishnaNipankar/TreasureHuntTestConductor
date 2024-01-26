@@ -11,11 +11,15 @@ const {
   getNextQuestion,
   verifyAnswer,
   endTest,
+  getTotalQuestionCount,
   protect,
 } = require("../Controllers/userControllers");
 
 // Account Login
 router.post("/", logUserIn);
+
+// Get Total Question Count
+router.get("/getTotalQuestionCount", protect, getTotalQuestionCount);
 
 // Verify Answer
 router.post("/verifyAnswer", protect, verifyAnswer);

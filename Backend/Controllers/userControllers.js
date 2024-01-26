@@ -76,6 +76,25 @@ exports.logUserIn = async (req, res) => {
   }
 };
 
+exports.getTotalQuestionCount = async (req, res) => {
+  try {
+    // Parse data into array of objects
+    return res.status(200).json({
+      status: "success",
+      totalQuestionCount: process.env.TOTAL_QUESTION_COUNT,
+      message: "Total Question Count Retrived Successfully",
+    });
+  } catch (exception) {
+    console.log(exception);
+    return res.status(500).json({
+      status: "fail",
+      data: null,
+      message: "Something went wrong at our side!",
+      exception: exception.message,
+    });
+  }
+};
+
 exports.verifyAnswer = async (req, res) => {
   try {
     // Extract necessary information from the request body
