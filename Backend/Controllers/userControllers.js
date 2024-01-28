@@ -254,6 +254,16 @@ exports.endTest = async (req, res) => {
       });
     }
 
+    // Check if the test is already given
+    const user = await User.findById(req.user.id);
+    if (user.testSubmissionTime !== null) {
+      return res.status(200).json({
+        status: "fail",
+        data: null,
+        message: "You've already Submitted the test Once!",
+      });
+    }
+
     // Check if the provided answer is correct
     const isAnswerCorrect = testQuestion.answer === answer;
 
