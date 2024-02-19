@@ -78,10 +78,11 @@ exports.logUserIn = async (req, res) => {
 
 exports.getTotalQuestionCount = async (req, res) => {
   try {
+    const TOTAL_QUESTION_COUNT = 10;
     // Parse data into array of objects
     return res.status(200).json({
       status: "success",
-      totalQuestionCount: process.env.TOTAL_QUESTION_COUNT,
+      totalQuestionCount: TOTAL_QUESTION_COUNT,
       message: "Total Question Count Retrived Successfully",
     });
   } catch (exception) {
