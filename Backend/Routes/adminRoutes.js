@@ -12,6 +12,7 @@ const {
   getResults,
   getAllUsers,
   resetUserData,
+  resetAllUserData,
   getTotalQuestionCount,
   protect,
 } = require("../Controllers/adminControllers");
@@ -26,6 +27,8 @@ router.get("/getAllUsers", protect, getAllUsers);
 router.get("/getTotalQuestionCount", protect, getTotalQuestionCount);
 // Reset User Data of a particular User
 router.post("/resetData", protect, resetUserData);
+// Reset All User Data
+router.post("/resetAllUserData", protect, resetAllUserData);
 // Create Test
 router.post("/createTest", protect, createTest);
 // Generate Result

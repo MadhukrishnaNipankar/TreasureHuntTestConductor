@@ -196,6 +196,38 @@ exports.resetUserData = async (req, res) => {
   }
 };
 
+exports.resetAllUserData = async (req, res) => {
+  try {
+    // 1] Find all users
+    const users = await User.find();
+
+    // 2] Loop through each user and reset their data
+    for (let i = 0; i < users.length; i++) {
+      const user = users[i];
+      // Reset the values of 'questionsSolved' to 0 and 'testSubmissionTime' to null
+      user.questionsSolved = 0;
+      user.testSubmissionTime = null;
+      // Save the updated user object
+      await user.save();
+    }
+
+    // 3] Send the response that the data reset was successful
+    return res.status(200).json({
+      status: "success",
+      data: null,
+      message: "All user data reset was successful",
+    });
+  } catch (exception) {
+    console.log(exception);
+    return res.status(500).json({
+      status: "fail",
+      data: null,
+      message: "Something went wrong at our side!",
+      exception: exception.message,
+    });
+  }
+};
+
 exports.createTest = async (req, res) => {
   try {
     // Parse data into array of objects
