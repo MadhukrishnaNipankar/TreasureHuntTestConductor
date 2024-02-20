@@ -4,6 +4,7 @@ const { promisify } = require("util");
 // Importing Models
 const User = require("../Models/UserModel");
 const Test = require("../Models/TestModel");
+const TOTAL_QUESTION_COUNT = 10;
 
 const signToken = (id) => {
   const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
@@ -78,7 +79,6 @@ exports.logUserIn = async (req, res) => {
 
 exports.getTotalQuestionCount = async (req, res) => {
   try {
-    const TOTAL_QUESTION_COUNT = 10;
     // Parse data into array of objects
     return res.status(200).json({
       status: "success",
@@ -110,7 +110,7 @@ exports.verifyAnswer = async (req, res) => {
       });
     }
 
-    if (questionId == process.env.TOTAL_QUESTION_COUNT) {
+    if (questionId == TOTAL_QUESTION_COUNT) {
       return res.status(400).json({
         status: "fail",
         data: null,
