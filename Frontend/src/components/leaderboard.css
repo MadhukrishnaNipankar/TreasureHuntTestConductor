@@ -1,0 +1,13 @@
+.no-border {
+    border: none !important;
+}
+.text-color {
+    color: #FFC107 !important;
+    font-style: bold;
+}
+
+.top-row {
+    background-color: yellow; /* Add your preferred highlighting styles */
+}
+
+  

@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap');
+
+.hero-heading {
+    font-family: 'Rowdies', sans-serif;
+}
+
+/* model css */
+.modal {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background: rgba(49, 49, 49, 0.19);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.7px);
+    -webkit-backdrop-filter: blur(5.7px);
+}
+
+::-webkit-scrollbar {
+    width: 0.6rem;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #ff2e2e;
+    border-radius: 0.5rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #eed91b;
+    border-radius: 0.5rem;
+}
+
+#praxis-logo {
+    font-size: 8rem;
+}
+
+#comp-name {
+    font-size: 3rem;
+}
+
+#praxis-desc {
+    font-size: 1.2rem;
+    width: 80vw;
+    text-shadow: black 19px 2px 20px;
+    font-weight: bold;
+    margin-top: 0.8rem;
+    color: white;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+#praxis-logo-container {
+    margin-top: 1rem;
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@media (max-width: 883px) {
+    #praxis-desc {
+        display: none;
+    }
+
+    #praxis-logo-container {
+        display: none;
+    }
+
+    #praxis-logo {
+        font-size: 5rem;
+    }
+
+    #comp-name {
+        font-size: 1.5rem;
+    }
+
+}
